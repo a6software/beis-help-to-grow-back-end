@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+    node-app:
+        image: node:14-alpine
+        environment:
+            DB_HOST: 'db'
+            DB_PORT: '5438'
+            DB_USERNAME: 'help_to_grow'
+            DB_PASSWORD: 'help_to_grow_db_password'
+            DB_DATABASE_NAME: 'help_to_grow'
+        ports:
+            - 4001:3000
+        working_dir: /opt/app
+        volumes:
+            - ./:/opt/app:ro
+        command: npm run start:dev
+
+    db:
+        image: postgres:11.12-alpine
+        restart: always
+        environment:
+            POSTGRES_USER: 'help_to_grow'
+            POSTGRES_PASSWORD: 'help_to_grow_db_password'
+        logging:
+            options:
+                max-size: 10m
+                max-file: "3"
+        ports:
+            - 5438:5432
+        volumes:
+            - ./volumes/postgres-data:/var/lib/postgresql/data

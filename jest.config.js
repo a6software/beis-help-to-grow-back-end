@@ -3,11 +3,11 @@ process.env.TZ = 'GMT';
 module.exports = {
   clearMocks: true,
   testEnvironment: 'node',
-  setupFilesAfterEnv: ['./tests/setupTests.js'],
+  setupFilesAfterEnv: ['./tests/setupTests.ts'],
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.ts'],
   coverageReporters: ['json', 'html', 'text', 'text-summary'],
-  coveragePathIgnorePatterns: ['node_modules', '<rootDir>/src/app.js'],
+  coveragePathIgnorePatterns: ['node_modules', '<rootDir>/src/app.ts', '<rootDir>/src/types.ts'],
   coverageThreshold: {
     global: {
       branches: 100,

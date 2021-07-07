@@ -2,18 +2,21 @@ version: '3.7'
 
 services:
     node-app:
-        image: node:14-alpine
+        build:
+            dockerfile: ./Dockerfile.dev
         environment:
             DB_HOST: 'db'
-            DB_PORT: '5438'
+            DB_PORT: '5432'
             DB_USERNAME: 'help_to_grow'
             DB_PASSWORD: 'help_to_grow_db_password'
             DB_DATABASE_NAME: 'help_to_grow'
+            DB_DATABASE_DEBUG: 'true'
         ports:
             - 4001:3000
         working_dir: /opt/app
         volumes:
             - ./:/opt/app:ro
+            - /opt/app/node_modules
         command: npm run start:dev
 
     db:

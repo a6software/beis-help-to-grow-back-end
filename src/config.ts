@@ -11,6 +11,11 @@ export default {
       max: Number(process.env.DB_POOL_MAX || 10),
     },
   },
+  security: {
+    authentication: {
+      saltRounds: Number(process.env.SECURITY_AUTHENTICATION_SALT_ROUNDS || 10),
+    },
+  },
   server: {
     port: Number(process.env.PORT || 3000),
   },

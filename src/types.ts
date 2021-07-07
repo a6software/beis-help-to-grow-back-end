@@ -1,4 +1,6 @@
-type KnexConnectionConfig = {
+export type ApplicationEnvironment = 'development' | 'staging' | 'production' | 'test';
+
+export type KnexPostgresConfig = KnexCommonConnectionConfig & {
   client: 'pg';
   connection: {
     host: string;
@@ -7,6 +9,17 @@ type KnexConnectionConfig = {
     password: string;
     database: string;
   };
+};
+
+export type KnexSqliteConfig = KnexCommonConnectionConfig & {
+  client: 'sqlite3';
+  connection: {
+    filename: 'file:memDb1?mode=memory';
+  };
+  useNullAsDefault: true;
+};
+
+type KnexCommonConnectionConfig = {
   debug: boolean;
   migrations: {
     tableName: 'migrations';
@@ -17,5 +30,7 @@ type KnexConnectionConfig = {
     directory: string;
   };
 };
+
+export type KnexConnectionConfig = KnexPostgresConfig | KnexSqliteConfig;
 
 export type KnexConfig = { [key: string]: KnexConnectionConfig };

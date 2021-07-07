@@ -14,13 +14,15 @@ ENV NODE_ENV=production
 ENV PORT=3000
 
 ADD dist dist
-ADD node_modules node_modules
 ADD package.json package.json
 ADD package-lock.json package-lock.json
 
-RUN npm prune --production \
-  && npm rebuild \
-  && npm version ${VERSION} --no-git-tag-version --allow-same-version || true \
+RUN apk add --no-cache make gcc g++ python && \
+  npm prune --production && \
+  npm rebuild bcrypt --build-from-source && \
+  npm ci && \
+  npm version ${VERSION} --no-git-tag-version --allow-same-version || true && \
+  apk del make gcc g++ python
 
 EXPOSE 3000
 

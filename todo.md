@@ -5,3 +5,8 @@
 - [ ] user roles 
 - [ ] load testing
 - [ ] typescript for knex response
+
+- [ ] get api up and running
+- [ ] add error message display
+- [ ] `post`
+- [ ] csrf

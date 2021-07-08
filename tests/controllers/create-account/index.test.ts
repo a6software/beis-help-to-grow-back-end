@@ -1,9 +1,22 @@
 import { agent as request } from 'supertest';
 import app from '../../../src/app';
 import connection from '../../../src/lib/database/connection';
+import { CONTENT_TYPE_JSON } from '../../helpers/response-headers';
+import {
+  passwordCannotBeEmptyError,
+  passwordDoesNotMatchExpectedPatternError,
+  passwordIsRequiredError,
+  repeatedPasswordIsRequiredError,
+} from '../../helpers/validation-error-messages/password';
+import { errorCreatingUserAccount } from '../../helpers/validation-error-messages/user-account';
+import {
+  emailIsNotValidError,
+  emailIsRequiredError,
+} from '../../helpers/validation-error-messages/email';
 
 const BASE_PATH = '/create-account';
-const CONTENT_TYPE_JSON = 'application/json; charset=utf-8';
+
+const GOOD_PASSWORD = '97zXDLfUZ9L12Rq4Myjckt9TfJ0L7x';
 
 describe('controllers/create-account', () => {
   beforeAll(async () => {
@@ -15,51 +28,83 @@ describe('controllers/create-account', () => {
   describe('post', () => {
     describe('unhappy paths', () => {
       it('should fail if all required parameters are missing', async () => {
-        await request(app).post(BASE_PATH).expect('Content-Type', CONTENT_TYPE_JSON).expect(400);
+        const response = await request(app)
+          .post(BASE_PATH)
+          .expect('Content-Type', CONTENT_TYPE_JSON)
+          .expect(400);
+
+        expect(response.body).toEqual({
+          success: false,
+          data: [emailIsRequiredError, passwordIsRequiredError, repeatedPasswordIsRequiredError],
+        });
       });
 
-      xdescribe('email', () => {
+      describe('email', () => {
         it('should require a valid looking email address', async () => {
+          const givenEmail = 'some bad value';
+
           const response = await request(app)
             .post(BASE_PATH)
-            .send({ email: 'some bad value', password: '123-abc' })
+            .send({
+              email: givenEmail,
+              password: GOOD_PASSWORD,
+              repeatedPassword: GOOD_PASSWORD,
+            })
             .expect('Content-Type', CONTENT_TYPE_JSON)
             .expect(400);
 
-          expect(response.body).toEqual('no');
+          expect(response.body).toEqual({
+            success: false,
+            data: [emailIsNotValidError(givenEmail)],
+          });
         });
 
         it('should require a unique email address', async () => {
           const response = await request(app)
             .post(BASE_PATH)
-            .send({ email: 'first.last@example.com', password: '123-abc' })
+            .send({
+              email: 'first.last@example.com',
+              password: GOOD_PASSWORD,
+              repeatedPassword: GOOD_PASSWORD,
+            })
             .expect('Content-Type', CONTENT_TYPE_JSON)
             .expect(400);
 
-          expect(response.body).toEqual('no');
+          expect(response.body).toEqual(errorCreatingUserAccount);
         });
       });
 
-      xdescribe('password', () => {
-        [{ password: undefined }, { password: null }, { password: '' }];
+      describe('password', () => {
         it('cannot be empty', async () => {
           const response = await request(app)
             .post(BASE_PATH)
-            .send({ email: 'first.last@example.com', password: '123-abc' })
+            .send({ email: 'first.last@example.com', password: '', repeatedPassword: '' })
             .expect('Content-Type', CONTENT_TYPE_JSON)
             .expect(400);
 
-          expect(response.body).toEqual('passwot?');
+          expect(response.body).toEqual({
+            success: false,
+            data: [passwordCannotBeEmptyError],
+          });
         });
 
         it('should not be too long', async () => {
+          const givenPassword = 'a'.repeat(200);
+
           const response = await request(app)
             .post(BASE_PATH)
-            .send({ email: 'first.last@example.com', password: 'a'.repeat(200) })
+            .send({
+              email: 'first.last@example.com',
+              password: givenPassword,
+              repeatedPassword: givenPassword,
+            })
             .expect('Content-Type', CONTENT_TYPE_JSON)
             .expect(400);
 
-          expect(response.body).toEqual('passwot?');
+          expect(response.body).toEqual({
+            success: false,
+            data: [passwordDoesNotMatchExpectedPatternError(givenPassword)],
+          });
         });
       });
     });
@@ -72,12 +117,13 @@ describe('controllers/create-account', () => {
           .post(BASE_PATH)
           .send({
             email,
-            password: 'w^gAbCT6 A Very Strong Password N$dS5ROVxyx4N*',
+            password: GOOD_PASSWORD,
+            repeatedPassword: GOOD_PASSWORD,
           })
           .expect('Content-Type', CONTENT_TYPE_JSON)
-          .expect(200);
+          .expect(201);
 
-        expect(response.body).toEqual({ email });
+        expect(response.body).toEqual({ success: true, data: { email } });
       });
     });
   });

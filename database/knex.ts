@@ -13,11 +13,11 @@ const basePgConfig: KnexConnectionConfig = {
   debug: config.db.debug === 'true',
   migrations: {
     tableName: 'migrations',
-    directory: __dirname + '/migrations',
+    directory: `${__dirname}/migrations`,
   },
   pool: { min: config.db.pool.min, max: config.db.pool.max },
   seeds: {
-    directory: __dirname + '/seeds',
+    directory: `${__dirname}/seeds`,
   },
 };
 
@@ -30,11 +30,11 @@ const knexConfig: KnexConfig = {
     debug: config.db.debug === 'true',
     migrations: {
       tableName: 'migrations',
-      directory: __dirname + '/migrations',
+      directory: `${__dirname}/migrations`,
     },
     pool: { min: config.db.pool.min, max: config.db.pool.max },
     seeds: {
-      directory: __dirname + '/seeds',
+      directory: `${__dirname}/seeds`,
     },
     useNullAsDefault: true,
   },
@@ -52,7 +52,7 @@ const knexConfig: KnexConfig = {
     debug: false,
     migrations: {
       tableName: 'migrations',
-      directory: __dirname + '/migrations',
+      directory: `${__dirname}/migrations`,
     },
     pool: { min: config.db.pool.min, max: config.db.pool.max },
   },

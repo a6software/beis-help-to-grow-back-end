@@ -3,3 +3,7 @@ export const options = {
   allowUnknown: true, // ignore unknown props
   stripUnknown: true, // remove unknown props
 };
+
+export default {
+  options,
+};

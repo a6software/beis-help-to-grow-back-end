@@ -6,7 +6,20 @@
 - [ ] load testing
 - [ ] typescript for knex response
 
-- [ ] get api up and running
+- [ ] VR - get api up and running
 - [ ] add error message display
 - [ ] `post`
 - [ ] csrf
+
+- [ ] verification link generation
+
+- [ ] docker networking fe > be
+- [ ] be jest coverage
+- [ ] notify
+
+- [ ] log in screens
+- [ ] jwt setup
+
+- [ ] password rules
+- [ ] should `users` be renamed to `vendors`
+

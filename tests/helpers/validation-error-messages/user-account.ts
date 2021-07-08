@@ -4,3 +4,7 @@ export const errorCreatingUserAccount = {
     msg: 'Sorry, there was an error creating your user account at this time.',
   },
 };
+
+export default {
+  errorCreatingUserAccount,
+};

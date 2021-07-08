@@ -1,5 +1,5 @@
 import express from 'express';
-import validateEmailAddressController from '../../../src/controllers/create-account/validate-email-address';
+import validateEmailAddressController from '../../controllers/create-account/validate-email-address';
 
 const router = express.Router();
 

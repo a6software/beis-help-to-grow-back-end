@@ -1,8 +1,8 @@
 import express from 'express';
-import createAccountController from '../../../src/controllers/create-account';
-import validateEmailAddressRouter from '../../../src/routes/create-account/validate-email-address';
-import validateRepeatedPasswordRouter from '../../../src/routes/create-account/validate-repeated-password';
-import validateTermsAndConditionsRouter from '../../../src/routes/create-account/validate-terms-and-conditions';
+import createAccountController from '../../controllers/create-account';
+import validateEmailAddressRouter from './validate-email-address';
+import validateRepeatedPasswordRouter from './validate-repeated-password';
+import validateTermsAndConditionsRouter from './validate-terms-and-conditions';
 
 const router = express.Router();
 

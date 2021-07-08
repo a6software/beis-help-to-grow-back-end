@@ -2,6 +2,18 @@ export type ApplicationEnvironment = 'development' | 'staging' | 'production' | 
 
 export type Email = string;
 
+type KnexCommonConnectionConfig = {
+  debug: boolean;
+  migrations: {
+    tableName: 'migrations';
+    directory: string;
+  };
+  pool: { min: number; max: number };
+  seeds?: {
+    directory: string;
+  };
+};
+
 export type KnexPostgresConfig = KnexCommonConnectionConfig & {
   client: 'pg';
   connection: {
@@ -19,18 +31,6 @@ export type KnexSqliteConfig = KnexCommonConnectionConfig & {
     filename: 'file:memDb1?mode=memory';
   };
   useNullAsDefault: true;
-};
-
-type KnexCommonConnectionConfig = {
-  debug: boolean;
-  migrations: {
-    tableName: 'migrations';
-    directory: string;
-  };
-  pool: { min: number; max: number };
-  seeds?: {
-    directory: string;
-  };
 };
 
 export type KnexConnectionConfig = KnexPostgresConfig | KnexSqliteConfig;

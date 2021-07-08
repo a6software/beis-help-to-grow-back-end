@@ -1,5 +1,3 @@
-process.env.TZ = 'GMT';
-
 module.exports = {
   clearMocks: true,
   testEnvironment: 'node',
@@ -7,7 +5,12 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.ts'],
   coverageReporters: ['json', 'html', 'text', 'text-summary'],
-  coveragePathIgnorePatterns: ['node_modules', '<rootDir>/src/app.ts', '<rootDir>/src/types.ts'],
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    '<rootDir>/src/app.ts',
+    '<rootDir>/src/config.ts',
+    '<rootDir>/src/types.ts',
+  ],
   coverageThreshold: {
     global: {
       branches: 100,

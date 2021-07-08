@@ -1,5 +1,5 @@
 import express from 'express';
-import validateRepeatedPasswordController from '../../../src/controllers/create-account/validate-repeated-password';
+import validateRepeatedPasswordController from '../../controllers/create-account/validate-repeated-password';
 
 const router = express.Router();
 

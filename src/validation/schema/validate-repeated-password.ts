@@ -6,3 +6,7 @@ export const schema = Joi.object({
   password: password(),
   repeatedPassword: repeatedPassword(),
 });
+
+export default {
+  schema,
+};

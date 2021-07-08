@@ -1,8 +1,8 @@
 import express from 'express';
-import validatetermsAndConditionsController from '../../../src/controllers/create-account/validate-terms-and-conditions';
+import validateTermsAndConditionsController from '../../controllers/create-account/validate-terms-and-conditions';
 
 const router = express.Router();
 
-router.post('/', validatetermsAndConditionsController.post);
+router.post('/', validateTermsAndConditionsController.post);
 
 export default router;

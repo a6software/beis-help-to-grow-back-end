@@ -16,7 +16,7 @@ export const passwordCannotBeEmptyError = {
 };
 
 export const passwordDoesNotMatchExpectedPatternError = (plainPassword: string) => ({
-  message: `\"password\" with value \"${plainPassword}\" fails to match the required pattern: /^[a-zA-Z0-9]{6,30}$/`,
+  message: `"password" with value "${plainPassword}" fails to match the required pattern: /^[a-zA-Z0-9]{6,30}$/`,
   path: ['password'],
   type: 'string.pattern.base',
   context: {
@@ -33,17 +33,14 @@ export const repeatedPasswordMustBeRefPasswordError = (givenPlainPasswordValue: 
     label: 'repeatedPassword',
     valids: [
       {
-        // @ts-ignore
-        adjust: null,
+        adjust: null as any,
         ancestor: 1,
         depth: 1,
         display: 'ref:password',
         in: false,
-        // @ts-ignore
-        iterables: null,
+        iterables: null as any,
         key: 'password',
-        // @ts-ignore
-        map: null,
+        map: null as any,
         path: ['password'],
         root: 'password',
         separator: '.',
@@ -56,3 +53,11 @@ export const repeatedPasswordMustBeRefPasswordError = (givenPlainPasswordValue: 
   path: ['repeatedPassword'],
   type: 'any.only',
 });
+
+export default {
+  passwordIsRequiredError,
+  repeatedPasswordIsRequiredError,
+  passwordCannotBeEmptyError,
+  passwordDoesNotMatchExpectedPatternError,
+  repeatedPasswordMustBeRefPasswordError,
+};

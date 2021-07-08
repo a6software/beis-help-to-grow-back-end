@@ -1,11 +1,11 @@
 import { agent as request } from 'supertest';
-import app from '../../../src/app';
+import app from '../../../../src/app';
 import {
   termsAndConditionsIsRequiredError,
   termsAndConditionsMustBeAValidValueError,
   termsAndConditionsMustBeBooleanError,
-} from '../../helpers/validation-error-messages/terms-and-conditions';
-import { CONTENT_TYPE_JSON } from '../../helpers/response-headers';
+} from '../../../helpers/validation-error-messages/terms-and-conditions';
+import { CONTENT_TYPE_JSON } from '../../../helpers/response-headers';
 
 const BASE_PATH = '/create-account/validate-terms-and-conditions';
 

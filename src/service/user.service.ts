@@ -4,6 +4,8 @@ import { TABLE } from '../../database/constants';
 import { hashPassword } from '../lib/security/authentication';
 import logger from '../lib/logger';
 
+const db = connection();
+
 export const ERROR = {
   CREATING_USER: 'error.creating_user',
 };
@@ -32,7 +34,6 @@ export const createUser = async (
   const hashedPassword = await hashPassword(plainTextPassword);
 
   try {
-    const db = connection();
     await db(TABLE.USERS).insert({ email, password: hashedPassword });
   } catch (e) {
     logger().error({ e }, 'Create user');

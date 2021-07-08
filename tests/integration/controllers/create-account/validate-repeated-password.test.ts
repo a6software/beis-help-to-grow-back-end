@@ -1,13 +1,13 @@
 import { agent as request } from 'supertest';
-import app from '../../../src/app';
+import app from '../../../../src/app';
 
-import { CONTENT_TYPE_JSON } from '../../helpers/response-headers';
+import { CONTENT_TYPE_JSON } from '../../../helpers/response-headers';
 import {
   passwordDoesNotMatchExpectedPatternError,
   passwordIsRequiredError,
   repeatedPasswordIsRequiredError,
   repeatedPasswordMustBeRefPasswordError,
-} from '../../helpers/validation-error-messages/password';
+} from '../../../helpers/validation-error-messages/password';
 
 const BASE_PATH = '/create-account/validate-repeated-password';
 

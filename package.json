@@ -6,7 +6,7 @@
     "node": ">=14.0.0 <15.0.0",
     "npm": ">=6.0.0 <7.0.0"
   },
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "tsc && npm run lint",
     "db:migration:create": "knex migrate:make --knexfile=./database/knex.ts -x ts",
@@ -14,9 +14,9 @@
     "db:seed:create": "knex seed:make --knexfile=./database/knex.ts",
     "db:seed:run": "knex seed:run --knexfile=./database/knex.ts",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "start": "node dist/app.js",
-    "start:dev": "nodemon src/app.ts | pino-pretty",
-    "test": "jest",
+    "start": "node dist/server.js",
+    "start:dev": "nodemon src/server.ts | pino-pretty",
+    "test": "jest  --verbose --runInBand",
     "test:watch": "jest --watchAll --runInBand --coverage"
   },
   "author": "Foundry4 <www.foundry4.com>",

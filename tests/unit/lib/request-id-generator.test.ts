@@ -1,4 +1,4 @@
-import requestIdGenerator from '../../src/lib/request-id-generator';
+import requestIdGenerator from '../../../src/lib/request-id-generator';
 
 describe('lib/request-id-generator', () => {
   it('should generate a uuid4', () => {

@@ -1,4 +1,4 @@
-import { hasAccess, hashPassword } from '../../../src/lib/security/authentication';
+import { hasAccess, hashPassword } from '../../../../src/lib/security/authentication';
 
 describe('lib/security/authentication', () => {
   [

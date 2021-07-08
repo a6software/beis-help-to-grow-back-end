@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { createUser } from '../../service/user.service';
 import { schema as createAccountSchema } from '../../validation/schema/create-account';
 import { options as joiValidationOptions } from '../../validation/default-validation-options';
 import { ValidationError } from '../../types';
+import { createUser } from '../../service/user.service';
 
 const post = async (req: Request, res: Response) => {
   const { email, password, repeatedPassword } = req.body;

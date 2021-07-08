@@ -25,14 +25,14 @@ const knexConfig: KnexConfig = {
   test: {
     client: 'sqlite3',
     connection: {
-      filename: 'file:memDb1?mode=memory',
+      filename: 'file:memDb1?mode=memory&cache=shared',
     },
     debug: config.db.debug === 'true',
     migrations: {
       tableName: 'migrations',
       directory: `${__dirname}/migrations`,
     },
-    pool: { min: config.db.pool.min, max: config.db.pool.max },
+    pool: { min: 1, max: 1 },
     seeds: {
       directory: `${__dirname}/seeds`,
     },

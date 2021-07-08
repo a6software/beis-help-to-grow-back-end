@@ -1,7 +1,7 @@
 import knex from 'knex';
 import path from 'path';
-import connection from '../../../src/lib/database/connection';
-import { ApplicationEnvironment, KnexConnectionConfig } from '../../../src/types';
+import connection from '../../../../src/lib/database/connection';
+import { ApplicationEnvironment, KnexConnectionConfig } from '../../../../src/types';
 
 jest.mock('knex');
 
@@ -16,7 +16,7 @@ const baseConfig: KnexConnectionConfig = {
   },
   debug: false,
   migrations: {
-    directory: path.join(__dirname, '/../../../database/migrations'),
+    directory: path.join(__dirname, '/../../../../database/migrations'),
     tableName: 'migrations',
   },
   pool: {
@@ -24,7 +24,7 @@ const baseConfig: KnexConnectionConfig = {
     min: 2,
   },
   seeds: {
-    directory: path.join(__dirname, '/../../../database/seeds'),
+    directory: path.join(__dirname, '/../../../../database/seeds'),
   },
 };
 
@@ -50,7 +50,12 @@ describe('lib/database/connection', () => {
       ...baseConfig,
       client: 'sqlite3',
       connection: {
-        filename: 'file:memDb1?mode=memory',
+        filename: 'file:memDb1?mode=memory&cache=shared',
+      },
+      pool: {
+        ...baseConfig.pool,
+        min: 1,
+        max: 1,
       },
       useNullAsDefault: true,
     });

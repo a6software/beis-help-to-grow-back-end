@@ -28,7 +28,7 @@ export type KnexPostgresConfig = KnexCommonConnectionConfig & {
 export type KnexSqliteConfig = KnexCommonConnectionConfig & {
   client: 'sqlite3';
   connection: {
-    filename: 'file:memDb1?mode=memory';
+    filename: 'file:memDb1?mode=memory&cache=shared';
   };
   useNullAsDefault: true;
 };

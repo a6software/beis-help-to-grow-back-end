@@ -1,18 +1,22 @@
 import bodyParser from 'body-parser';
-import express from 'express';
+import express, { Express } from 'express';
 import pinoHttp from 'pino-http';
 import requestIdGenerator from './lib/request-id-generator';
-import routes from './routes';
+import initRootRouter from './routes';
+import userService from './service/user.service';
+import { Knex } from 'knex';
 
-const app = express();
+export default function initApp(db: Knex): Express {
+  const app = express();
 
-app.use(
-  pinoHttp({
-    genReqId: () => requestIdGenerator(),
-  }),
-);
+  app.use(
+    pinoHttp({
+      genReqId: () => requestIdGenerator(),
+    }),
+  );
 
-app.use(bodyParser.json());
-app.use(routes);
+  app.use(bodyParser.json());
+  app.use(initRootRouter(userService(db)));
 
-export default app;
+  return app;
+}

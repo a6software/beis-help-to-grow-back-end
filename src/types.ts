@@ -37,6 +37,30 @@ export type KnexConnectionConfig = KnexPostgresConfig | KnexSqliteConfig;
 
 export type KnexConfig = { [key: string]: KnexConnectionConfig };
 
+export type ErrorResponse = {
+  success: false;
+  error: {
+    msg: string;
+  };
+};
+
+export type SuccessResponse = {
+  success: true;
+};
+
+export type CreateUserSuccessResponse = SuccessResponse & {
+  data: {
+    email: Email;
+  };
+};
+
+export type UserService = {
+  createUser: (
+    email: Email,
+    plainTextPassword: string,
+  ) => Promise<ErrorResponse | CreateUserSuccessResponse>;
+};
+
 export type ValidationError = {
   message: string;
   path: string[];

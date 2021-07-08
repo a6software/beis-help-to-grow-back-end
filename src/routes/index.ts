@@ -1,8 +1,13 @@
-import express from 'express';
-import createAccountRouter from './create-account';
+import express, { Router } from 'express';
+import initCreateAccountRouter from './create-account';
+import { UserService } from '../types';
 
-const router = express.Router();
+const initRootRouter = (userService: UserService): Router => {
+  const router = express.Router();
 
-router.use('/create-account', createAccountRouter);
+  router.use('/create-account', initCreateAccountRouter(userService));
 
-export default router;
+  return router;
+};
+
+export default initRootRouter;

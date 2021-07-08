@@ -1,6 +1,7 @@
 import { agent as request } from 'supertest';
+import { Express } from 'express';
 import { Knex } from 'knex';
-import app from '../../../../src/app';
+import initApp from '../../../../src/app';
 import { CONTENT_TYPE_JSON } from '../../../helpers/response-headers';
 import {
   passwordCannotBeEmptyError,
@@ -21,11 +22,14 @@ const GOOD_PASSWORD = '97zXDLfUZ9L12Rq4Myjckt9TfJ0L7x';
 
 describe('controllers/create-account', () => {
   let db: Knex;
+  let app: Express;
 
   beforeAll(async () => {
     db = connection();
     await db.migrate.latest();
     await db.seed.run();
+
+    app = initApp(db);
   });
 
   afterAll(async () => {
@@ -33,7 +37,7 @@ describe('controllers/create-account', () => {
   });
 
   describe('post', () => {
-    xdescribe('unhappy paths', () => {
+    describe('unhappy paths', () => {
       it('should fail if all required parameters are missing', async () => {
         const response = await request(app)
           .post(BASE_PATH)

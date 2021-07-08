@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
 import { schema as createAccountSchema } from '../../validation/schema/create-account';
 import { options as joiValidationOptions } from '../../validation/default-validation-options';
-import { ValidationError } from '../../types';
-import { createUser } from '../../service/user.service';
+import { UserService, ValidationError } from '../../types';
 
-const post = async (req: Request, res: Response) => {
+const post = (userService: UserService) => async (req: Request, res: Response) => {
   const { email, password, repeatedPassword } = req.body;
 
   const { error } = createAccountSchema.validate(
@@ -21,7 +20,7 @@ const post = async (req: Request, res: Response) => {
     return;
   }
 
-  const outcome = await createUser(email, password);
+  const outcome = await userService.createUser(email, password);
 
   if (!outcome.success) {
     res.status(400);

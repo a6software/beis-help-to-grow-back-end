@@ -9,6 +9,7 @@ module.exports = {
     'node_modules',
     '<rootDir>/src/app.ts',
     '<rootDir>/src/config.ts',
+    '<rootDir>/src/server.ts',
     '<rootDir>/src/types.ts',
   ],
   coverageThreshold: {

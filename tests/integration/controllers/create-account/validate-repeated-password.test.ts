@@ -1,5 +1,5 @@
 import { agent as request } from 'supertest';
-import app from '../../../../src/app';
+import initApp from '../../../../src/app';
 
 import { CONTENT_TYPE_JSON } from '../../../helpers/response-headers';
 import {
@@ -8,12 +8,30 @@ import {
   repeatedPasswordIsRequiredError,
   repeatedPasswordMustBeRefPasswordError,
 } from '../../../helpers/validation-error-messages/password';
+import { Knex } from 'knex';
+import { Express } from 'express';
+import connection from '../../../../src/lib/database/connection';
 
 const BASE_PATH = '/create-account/validate-repeated-password';
 
 const GOOD_PASSWORD = '97zXDLfUZ9L12Rq4Myjckt9TfJ0L7x';
 
 describe('controllers/create-account/validate-repeated-password', () => {
+  let db: Knex;
+  let app: Express;
+
+  beforeAll(async () => {
+    db = connection();
+    await db.migrate.latest();
+    await db.seed.run();
+
+    app = initApp(db);
+  });
+
+  afterAll(async () => {
+    await db.destroy();
+  });
+
   describe('post', () => {
     describe('unhappy paths', () => {
       it('should fail if all required parameters are missing', async () => {

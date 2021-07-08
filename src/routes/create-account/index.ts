@@ -1,15 +1,20 @@
-import express from 'express';
+import express, { Router } from 'express';
 import createAccountController from '../../controllers/create-account';
 import validateEmailAddressRouter from './validate-email-address';
 import validateRepeatedPasswordRouter from './validate-repeated-password';
 import validateTermsAndConditionsRouter from './validate-terms-and-conditions';
+import { UserService } from '../../types';
 
-const router = express.Router();
+const initCreateAccountRouter = (userService: UserService): Router => {
+  const router = express.Router();
 
-router.use('/validate-email-address', validateEmailAddressRouter);
-router.use('/validate-repeated-password', validateRepeatedPasswordRouter);
-router.use('/validate-terms-and-conditions', validateTermsAndConditionsRouter);
+  router.use('/validate-email-address', validateEmailAddressRouter);
+  router.use('/validate-repeated-password', validateRepeatedPasswordRouter);
+  router.use('/validate-terms-and-conditions', validateTermsAndConditionsRouter);
 
-router.post('/', createAccountController.post);
+  router.post('/', createAccountController.post(userService));
 
-export default router;
+  return router;
+};
+
+export default initCreateAccountRouter;

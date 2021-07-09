@@ -8,8 +8,7 @@
 
 - [ ] axe testing cypress
 
-- [ ] middleware error mapping
-- [ ] express session - memory, integration testing
+- [ ] front end middleware error mapping
 
 - [ ] VR - get api up and running
 - [ ] add error message display
@@ -32,5 +31,8 @@
 - [ ] users map to company
 - [ ] products map to company
 
+- [ ] shut up log noise in tests
+
 
 - [x] docker networking fe > be
+- [x] express session

@@ -1,4 +1,6 @@
 import { agent as request } from 'supertest';
+import { Knex } from 'knex';
+import { Express } from 'express';
 import initApp from '../../../../src/app';
 import {
   termsAndConditionsIsRequiredError,
@@ -6,8 +8,6 @@ import {
   termsAndConditionsMustBeBooleanError,
 } from '../../../helpers/validation-error-messages/terms-and-conditions';
 import { CONTENT_TYPE_JSON } from '../../../helpers/response-headers';
-import { Knex } from 'knex';
-import { Express } from 'express';
 import connection from '../../../../src/lib/database/connection';
 
 const BASE_PATH = '/create-account/validate-terms-and-conditions';

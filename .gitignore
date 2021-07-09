@@ -88,8 +88,8 @@ jspm_packages/
 .vscode-test
 
 # build
-.env
 dist
+file:memDb1?mode=memory&cache=shared
 
 # docker
 volumes

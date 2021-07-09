@@ -1,8 +1,8 @@
+import { Knex } from 'knex';
 import { CreateUserSuccessResponse, Email, ErrorResponse, UserService } from '../types';
 import { TABLE } from '../../database/constants';
 import { hashPassword } from '../lib/security/authentication';
 import logger from '../lib/logger';
-import { Knex } from 'knex';
 
 export const ERROR = {
   CREATING_USER: 'error.creating_user',

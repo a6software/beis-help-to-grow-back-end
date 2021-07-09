@@ -1,4 +1,6 @@
 import { agent as request } from 'supertest';
+import { Knex } from 'knex';
+import { Express } from 'express';
 import initApp from '../../../../src/app';
 
 import { CONTENT_TYPE_JSON } from '../../../helpers/response-headers';
@@ -8,8 +10,6 @@ import {
   repeatedPasswordIsRequiredError,
   repeatedPasswordMustBeRefPasswordError,
 } from '../../../helpers/validation-error-messages/password';
-import { Knex } from 'knex';
-import { Express } from 'express';
 import connection from '../../../../src/lib/database/connection';
 
 const BASE_PATH = '/create-account/validate-repeated-password';

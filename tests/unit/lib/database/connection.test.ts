@@ -16,7 +16,7 @@ const baseConfig: KnexConnectionConfig = {
   },
   debug: false,
   migrations: {
-    directory: path.join(__dirname, '/../../../../database/migrations'),
+    directory: path.join(__dirname, '/../../../../', 'database', 'migrations'),
     tableName: 'migrations',
   },
   pool: {
@@ -24,7 +24,7 @@ const baseConfig: KnexConnectionConfig = {
     min: 2,
   },
   seeds: {
-    directory: path.join(__dirname, '/../../../../database/seeds'),
+    directory: path.join(__dirname, '/../../../../', 'database', 'seeds'),
   },
 };
 

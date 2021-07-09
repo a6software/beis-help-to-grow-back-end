@@ -1,3 +1,4 @@
+import path from 'path';
 import config from '../src/config';
 import { KnexConfig, KnexConnectionConfig } from '../src/types';
 
@@ -13,11 +14,11 @@ const basePgConfig: KnexConnectionConfig = {
   debug: config.db.debug === 'true',
   migrations: {
     tableName: 'migrations',
-    directory: `${__dirname}/migrations`,
+    directory: path.join(__dirname, 'migrations'),
   },
   pool: { min: config.db.pool.min, max: config.db.pool.max },
   seeds: {
-    directory: `${__dirname}/seeds`,
+    directory: path.join(__dirname, 'seeds'),
   },
 };
 
@@ -30,11 +31,11 @@ const knexConfig: KnexConfig = {
     debug: config.db.debug === 'true',
     migrations: {
       tableName: 'migrations',
-      directory: `${__dirname}/migrations`,
+      directory: path.join(__dirname, 'migrations'),
     },
     pool: { min: 1, max: 1 },
     seeds: {
-      directory: `${__dirname}/seeds`,
+      directory: path.join(__dirname, 'seeds'),
     },
     useNullAsDefault: true,
   },
@@ -52,7 +53,7 @@ const knexConfig: KnexConfig = {
     debug: false,
     migrations: {
       tableName: 'migrations',
-      directory: `${__dirname}/migrations`,
+      directory: path.join(__dirname, 'migrations'),
     },
     pool: { min: config.db.pool.min, max: config.db.pool.max },
   },

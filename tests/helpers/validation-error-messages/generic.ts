@@ -22,10 +22,11 @@ export const mustBeBooleanError = (fieldName: string, givenValue: string | numbe
 export const mustBeAValidValueError = (
   fieldName: string,
   givenValue: string | number | boolean,
+  type = 'any.invalid',
 ) => ({
   message: `"${fieldName}" contains an invalid value`,
   path: [fieldName],
-  type: 'any.invalid',
+  type,
   context: {
     invalids: [givenValue],
     label: fieldName,

@@ -5,6 +5,8 @@ import { Knex } from 'knex';
 import requestIdGenerator from './lib/request-id-generator';
 import initRootRouter from './routes';
 import userService from './service/user.service';
+import softwareDetailsService from './service/software-details.service';
+import emailVerificationService from './service/email-verification.service';
 
 export default function initApp(db: Knex): Express {
   const app = express();
@@ -16,7 +18,9 @@ export default function initApp(db: Knex): Express {
   );
 
   app.use(bodyParser.json());
-  app.use(initRootRouter(userService(db)));
+  app.use(
+    initRootRouter(emailVerificationService(db), userService(db), softwareDetailsService(db)),
+  );
 
   return app;
 }

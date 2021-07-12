@@ -1,18 +1,20 @@
 import { Request, Response } from 'express';
 import { options as joiValidationOptions } from '../../validation/default-validation-options';
 import { schema as validateEligibilityCompleteSchema } from '../../validation/schema/eligibility/validate-eligibility-complete';
-import { ValidationError } from '../../types';
 
 const post = async (req: Request, res: Response) => {
   const { eligibilityComplete } = req.body;
 
-  const { error } = validateEligibilityCompleteSchema.validate({ eligibilityComplete }, joiValidationOptions);
+  const { error } = validateEligibilityCompleteSchema.validate(
+    { eligibilityComplete },
+    joiValidationOptions,
+  );
 
   if (error) {
     res.status(400);
     res.json({
       success: false,
-      data: error.details.map((err: ValidationError) => err),
+      data: error.details,
     });
     return;
   }

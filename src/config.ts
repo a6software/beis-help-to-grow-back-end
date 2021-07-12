@@ -15,6 +15,12 @@ export default {
     authentication: {
       saltRounds: Number(process.env.SECURITY_AUTHENTICATION_SALT_ROUNDS || 10),
     },
+    jwt: {
+      token: {
+        expires: process.env.JWT_TOKEN_EXPIRES,
+        secret: process.env.JWT_TOKEN_SECRET,
+      },
+    },
   },
   server: {
     port: Number(process.env.PORT || 3000),

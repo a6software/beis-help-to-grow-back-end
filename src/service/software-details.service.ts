@@ -43,8 +43,19 @@ export default function softwareDetailsService(db: Knex): SoftwareDetailsService
     } catch (e) {
       return {
         success: false,
-        error: {
-          msg: 'some error',
+        data: {
+          errors: [
+            {
+              message: 'XXXXXXXXXXXX',
+              path: ['root'],
+              type: 'XXXXXXXXXXXX',
+              context: {
+                value: '',
+                label: 'root',
+                key: 'root',
+              },
+            },
+          ],
         },
       };
     }

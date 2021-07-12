@@ -5,11 +5,20 @@ import { generateAccessToken } from '../../lib/security/access-token';
 
 const genericSignInErrorResponseBody = {
   success: false,
-  data: [
-    {
-      message: 'This username and password combination was not recognised.',
-    },
-  ],
+  data: {
+    errors: [
+      {
+        message: 'This username and password combination was not recognised.',
+        path: ['root'],
+        type: 'XXXXXXXXXXXX',
+        context: {
+          value: '',
+          label: 'root',
+          key: 'root',
+        },
+      },
+    ],
+  },
 };
 
 const post =

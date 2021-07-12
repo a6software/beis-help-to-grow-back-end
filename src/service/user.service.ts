@@ -29,8 +29,19 @@ export default function userService(db: Knex): UserService {
       logger().error({ e }, 'Create user');
       return {
         success: false,
-        error: {
-          msg: ERROR.CREATING_USER,
+        data: {
+          errors: [
+            {
+              message: ERROR.CREATING_USER,
+              path: ['root'],
+              type: 'invalid.credentials',
+              context: {
+                value: '',
+                label: 'root',
+                key: 'root',
+              },
+            },
+          ],
         },
       };
     }
@@ -54,8 +65,19 @@ export default function userService(db: Knex): UserService {
       logger().error({ e }, 'Find user by email address');
       return {
         success: false,
-        error: {
-          msg: ERROR.FIND_USER_BY_EMAIL_ADDRESS,
+        data: {
+          errors: [
+            {
+              message: ERROR.FIND_USER_BY_EMAIL_ADDRESS,
+              path: ['root'],
+              type: 'unrecognised.email_address',
+              context: {
+                value: '',
+                label: 'root',
+                key: 'root',
+              },
+            },
+          ],
         },
       };
     }

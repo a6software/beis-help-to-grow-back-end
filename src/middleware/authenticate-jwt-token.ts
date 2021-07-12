@@ -5,7 +5,10 @@ export const authenticateJwtToken = (req: Request, res: Response, next: NextFunc
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
-  if (token == null) return res.sendStatus(401);
+  if (token == null) {
+    res.sendStatus(401);
+    return;
+  }
 
   req.user = undefined;
 
@@ -13,7 +16,8 @@ export const authenticateJwtToken = (req: Request, res: Response, next: NextFunc
     req.user = verifyAccessToken(token);
   } catch (e) {
     req.log.error(e);
-    return res.sendStatus(403);
+    res.sendStatus(403);
+    return;
   }
 
   next();

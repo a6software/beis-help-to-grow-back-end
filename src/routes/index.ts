@@ -4,6 +4,9 @@ import { SoftwareDetailsService, UserService } from '../types';
 import initSoftwareDetailsRouter from './software-details';
 import initSignInRouter from './sign-in';
 import { authenticateJwtToken } from '../middleware/authenticate-jwt-token';
+import verifyJwtRouter from './verify-jwt';
+
+console.log(`verifyJwtRouter`, verifyJwtRouter);
 
 const initRootRouter = (
   userService: UserService,
@@ -18,6 +21,7 @@ const initRootRouter = (
     authenticateJwtToken,
     initSoftwareDetailsRouter(softwareDetailsService),
   );
+  router.use('/verify-jwt', authenticateJwtToken, verifyJwtRouter);
 
   return router;
 };

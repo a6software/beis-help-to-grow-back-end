@@ -52,8 +52,8 @@ export type KnexConfig = { [key: string]: KnexConnectionConfig };
 
 export type ErrorResponse = {
   success: false;
-  error: {
-    msg: string;
+  data: {
+    errors: BEISValidationError[];
   };
 };
 
@@ -84,17 +84,18 @@ export type UserService = {
   ) => Promise<ErrorResponse | FindUserByEmailAddressSuccessResponse>;
 };
 
-export type ValidationError = {
+export type JoiValidationError = {
   message: string;
   path: string[];
   type: string;
   context: {
     value: string;
-    invalids: string[];
     label: string;
     key: string;
   };
 };
+
+export type BEISValidationError = JoiValidationError;
 
 export type GetSoftwareDetailsResponse = SuccessResponse & {
   data: {
@@ -105,6 +106,8 @@ export type GetSoftwareDetailsResponse = SuccessResponse & {
 export type SoftwareDetailsService = {
   getSoftwareDetails: () => Promise<ErrorResponse | GetSoftwareDetailsResponse>;
 };
+
+export type CreateAccountSuccessResponse = { success: true; data: { email: Email; jwt: JWT } };
 
 export type SignInSuccessResponse = SuccessResponse & {
   data: {

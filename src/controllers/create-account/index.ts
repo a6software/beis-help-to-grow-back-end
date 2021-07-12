@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { schema as createAccountSchema } from '../../validation/schema/create-account';
 import { options as joiValidationOptions } from '../../validation/default-validation-options';
 import { UserService, ValidationError } from '../../types';
+import { generateAccessToken } from '../../lib/security/access-token';
 
 const post = (userService: UserService) => async (req: Request, res: Response) => {
   const { email, password, repeatedPassword } = req.body;
@@ -34,7 +35,7 @@ const post = (userService: UserService) => async (req: Request, res: Response) =
   }
 
   res.status(201);
-  res.json({ success: true, data: { email } });
+  res.json({ success: true, data: { email, jwt: generateAccessToken(email) } });
 };
 
 export default {

@@ -1,6 +1,19 @@
 export type ApplicationEnvironment = 'development' | 'staging' | 'production' | 'test';
 
 export type Email = string;
+export type PlainTextPassword = string;
+export type HashedPassword = string;
+
+export type JWT = string;
+
+export type UserDetailsPublic = {
+  email: Email;
+};
+
+export type UserDetailsFromApi = {
+  email: Email;
+  password: HashedPassword;
+};
 
 type KnexCommonConnectionConfig = {
   debug: boolean;
@@ -54,11 +67,21 @@ export type CreateUserSuccessResponse = SuccessResponse & {
   };
 };
 
+export type FindUserByEmailAddressSuccessResponse = SuccessResponse & {
+  data: {
+    user: UserDetailsFromApi;
+  };
+};
+
 export type UserService = {
   createUser: (
     email: Email,
     plainTextPassword: string,
   ) => Promise<ErrorResponse | CreateUserSuccessResponse>;
+
+  findUserByEmailAddress: (
+    email: Email,
+  ) => Promise<ErrorResponse | FindUserByEmailAddressSuccessResponse>;
 };
 
 export type ValidationError = {
@@ -72,3 +95,32 @@ export type ValidationError = {
     key: string;
   };
 };
+
+export type GetSoftwareDetailsResponse = SuccessResponse & {
+  data: {
+    softwareDetails: string;
+  };
+};
+
+export type SoftwareDetailsService = {
+  getSoftwareDetails: () => Promise<ErrorResponse | GetSoftwareDetailsResponse>;
+};
+
+export type SignInSuccessResponse = SuccessResponse & {
+  data: {
+    token: JWT;
+    user: {
+      email: Email;
+    };
+  };
+};
+
+declare global {
+  namespace Express {
+    interface Request {
+      user: any;
+    }
+  }
+}
+
+export default {};

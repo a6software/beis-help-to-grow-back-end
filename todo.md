@@ -1,12 +1,7 @@
-## VR
-
-- [ ] VR - get api up and running
-
 # TODO
 
 - [ ] verification link generation
-- [ ] jwt setup
-- [ ] log in screens
+- [ ] password reset
 
 - [ ] notify
 - [ ] ch integration
@@ -23,6 +18,8 @@
 - [ ] 500 page
 
 - [ ] shut up log noise in tests
+
+- [ ] be - `validate-your-details` - testing
 
 # UX Q's
 
@@ -45,6 +42,11 @@
 
 # Done
 
+- [x] docker networking setup
+- [x] VR - get api up and running
+- [x] FE mask password input
+- [x] jwt setup
+- [x] log in screen
 - [x] add error message display
 - [x] front end middleware error mapping
 - [x] docker networking fe > be

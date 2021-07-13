@@ -39,8 +39,5 @@ services:
             - internal
 
 networks:
-    web:
-        external: true
     internal:
-        external: true
         name: help_to_grow_internal_network

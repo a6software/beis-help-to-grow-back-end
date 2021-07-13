@@ -38,5 +38,8 @@ services:
             - ./volumes/postgres-data:/var/lib/postgresql/data
 
 networks:
-    default:
+#    web:
+#        external:
+    internal:
+#        external:
         name: help_to_grow_internal_network

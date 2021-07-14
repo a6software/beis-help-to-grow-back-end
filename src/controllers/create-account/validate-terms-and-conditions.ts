@@ -3,10 +3,14 @@ import { schema as validateTermsAndConditionsSchema } from '../../validation/sch
 import { options as joiValidationOptions } from '../../validation/default-validation-options';
 
 const post = async (req: Request, res: Response) => {
-  const { termsAndConditions } = req.body;
+  const { consentToTermsAndConditions, consentToDataSharing } = req.body;
+  console.log(`{ consentToTermsAndConditions, consentToDataSharing }`, {
+    consentToTermsAndConditions,
+    consentToDataSharing,
+  });
 
   const { error } = validateTermsAndConditionsSchema.validate(
-    { termsAndConditions },
+    { consentToTermsAndConditions, consentToDataSharing },
     joiValidationOptions,
   );
 
@@ -14,13 +18,15 @@ const post = async (req: Request, res: Response) => {
     res.status(400);
     res.json({
       success: false,
-      data: error.details,
+      data: {
+        errors: error.details,
+      },
     });
     return;
   }
 
   res.status(200);
-  res.json({ success: true, data: { termsAndConditions: true } });
+  res.json({ success: true, data: { consentToTermsAndConditions, consentToDataSharing } });
 };
 
 export default {

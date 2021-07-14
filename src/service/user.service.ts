@@ -24,7 +24,7 @@ export default function userService(db: Knex): UserService {
     const hashedPassword = await hashPassword(plainTextPassword);
 
     try {
-      await db(TABLE.USERS).insert({ email, password: hashedPassword });
+      await db(TABLE.VENDOR_COMPANY_USER).insert({ email, password: hashedPassword });
     } catch (e) {
       logger().error({ e }, 'Create user');
       return {
@@ -59,8 +59,7 @@ export default function userService(db: Knex): UserService {
   ): Promise<ErrorResponse | FindUserByEmailAddressSuccessResponse> => {
     let user: UserDetailsFromApi;
     try {
-      const result = (await db(TABLE.USERS).where({ email })) as any;
-      user = result[0] as UserDetailsFromApi;
+      user = (await db(TABLE.VENDOR_COMPANY_USER).where({ email }).first()) as UserDetailsFromApi;
     } catch (e) {
       logger().error({ e }, 'Find user by email address');
       return {

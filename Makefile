@@ -12,6 +12,10 @@ migrate-latest:
 	docker compose exec node-app npm run db:migration:migrate:latest
 .PHONY: migrate-latest
 
+migrate-roll-back:
+	docker compose exec node-app npm run db:migration:rollback
+.PHONY: migrate-roll-back
+
 seed-run:
 	docker compose exec node-app npm run db:seed:run
 .PHONY: seed-run

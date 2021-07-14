@@ -5,6 +5,7 @@ export type PlainTextPassword = string;
 export type HashedPassword = string;
 
 export type JWT = string;
+export type EmailVerificationCode = string;
 
 export type UserDetailsPublic = {
   email: Email;
@@ -73,10 +74,32 @@ export type FindUserByEmailAddressSuccessResponse = SuccessResponse & {
   };
 };
 
+export type CreateEmailVerificationCodeSuccessResponse = SuccessResponse & {
+  data: {
+    email: Email;
+  };
+};
+
+export type ValidateEmailVerificationCodeSuccessResponse = SuccessResponse & {
+  data: {
+    email: Email;
+  };
+};
+
+export type EmailVerificationService = {
+  createEmailVerificationCode: (
+    email: Email,
+  ) => Promise<ErrorResponse | CreateEmailVerificationCodeSuccessResponse>;
+  validateEmailVerificationCode: (
+    email: Email,
+    verificationCode: EmailVerificationCode,
+  ) => Promise<ErrorResponse | ValidateEmailVerificationCodeSuccessResponse>;
+};
+
 export type UserService = {
   createUser: (
     email: Email,
-    plainTextPassword: string,
+    plainTextPassword: PlainTextPassword,
   ) => Promise<ErrorResponse | CreateUserSuccessResponse>;
 
   findUserByEmailAddress: (

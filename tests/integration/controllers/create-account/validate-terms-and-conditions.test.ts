@@ -2,13 +2,16 @@ import { agent as request } from 'supertest';
 import { Knex } from 'knex';
 import { Express } from 'express';
 import initApp from '../../../../src/app';
-import {
-  termsAndConditionsIsRequiredError,
-  termsAndConditionsMustBeAValidValueError,
-  termsAndConditionsMustBeBooleanError,
-} from '../../../helpers/validation-error-messages/terms-and-conditions';
 import { CONTENT_TYPE_JSON } from '../../../helpers/response-headers';
 import connection from '../../../../src/lib/database/connection';
+import {
+  consentToTermsAndConditionsIsRequiredError,
+  consentToTermsAndConditionsMustBeAValidValueError,
+} from '../../../helpers/validation-error-messages/consent-to-terms-and-conditions';
+import {
+  consentToDataSharingIsRequiredError,
+  consentToDataSharingMustBeAValidValueError,
+} from '../../../helpers/validation-error-messages/consent-to-data-sharing';
 
 const BASE_PATH = '/create-account/validate-terms-and-conditions';
 
@@ -38,38 +41,43 @@ describe('controllers/create-account/validate-terms-and-conditions', () => {
 
         expect(response.body).toEqual({
           success: false,
-          data: [termsAndConditionsIsRequiredError],
+          data: {
+            errors: [
+              consentToDataSharingIsRequiredError,
+              consentToTermsAndConditionsIsRequiredError,
+            ],
+          },
         });
       });
 
-      it(`should require a truthy boolean value`, async () => {
-        const response = await request(app)
-          .post(BASE_PATH)
-          .send({
-            termsAndConditions: false,
-          })
-          .expect('Content-Type', CONTENT_TYPE_JSON)
-          .expect(400);
-
-        expect(response.body).toEqual({
-          success: false,
-          data: [termsAndConditionsMustBeAValidValueError(false)],
-        });
-      });
-
-      ['no', 'off', 0].forEach((falsyValue) => {
-        it(`should reject unusual falsy variants - ${falsyValue}`, async () => {
+      [
+        {
+          given: {
+            consentToDataSharing: false,
+            consentToTermsAndConditions: true,
+          },
+          expected: [consentToDataSharingMustBeAValidValueError(false)],
+        },
+        {
+          given: {
+            consentToDataSharing: true,
+            consentToTermsAndConditions: false,
+          },
+          expected: [consentToTermsAndConditionsMustBeAValidValueError(false)],
+        },
+      ].forEach(({ given, expected }) => {
+        it(`should require a truthy boolean value`, async () => {
           const response = await request(app)
             .post(BASE_PATH)
-            .send({
-              termsAndConditions: falsyValue,
-            })
+            .send(given)
             .expect('Content-Type', CONTENT_TYPE_JSON)
             .expect(400);
 
           expect(response.body).toEqual({
             success: false,
-            data: [termsAndConditionsMustBeBooleanError(falsyValue)],
+            data: {
+              errors: expected,
+            },
           });
         });
       });
@@ -80,12 +88,19 @@ describe('controllers/create-account/validate-terms-and-conditions', () => {
         const response = await request(app)
           .post(BASE_PATH)
           .send({
-            termsAndConditions: true,
+            consentToDataSharing: true,
+            consentToTermsAndConditions: true,
           })
           .expect('Content-Type', CONTENT_TYPE_JSON)
           .expect(200);
 
-        expect(response.body).toEqual({ success: true, data: { termsAndConditions: true } });
+        expect(response.body).toEqual({
+          success: true,
+          data: {
+            consentToDataSharing: true,
+            consentToTermsAndConditions: true,
+          },
+        });
       });
     });
   });

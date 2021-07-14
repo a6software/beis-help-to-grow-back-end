@@ -1,8 +1,10 @@
 import Joi from 'joi';
-import termsAndConditions from '../rules/terms-and-conditions';
+import consentToDataSharing from '../rules/consent-to-data-sharing';
+import consentToTermsAndConditions from '../rules/consent-to-terms-and-conditions';
 
 export const schema = Joi.object({
-  termsAndConditions: termsAndConditions(),
+  consentToDataSharing: consentToDataSharing(),
+  consentToTermsAndConditions: consentToTermsAndConditions(),
 });
 
 export default {

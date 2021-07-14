@@ -12,6 +12,8 @@ services:
             DB_PASSWORD: 'help_to_grow_db_password'
             DB_DATABASE_NAME: 'help_to_grow'
             DB_DATABASE_DEBUG: 'true'
+            JWT_TOKEN_SECRET: 'CVfaGhDjy71MyS34DKRhOZZPoHpdmHqtW2y6rjMtu0qxoe8oDXXcR6nsPpq8mmxS'
+            JWT_TOKEN_EXPIRES: '30s'
         ports:
             - 4001:3000
         working_dir: /opt/app

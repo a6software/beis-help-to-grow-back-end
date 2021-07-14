@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { schema as validateRepeatedPasswordSchema } from '../../validation/schema/validate-repeated-password';
 import { options as joiValidationOptions } from '../../validation/default-validation-options';
-import { ValidationError } from '../../types';
 
 const post = async (req: Request, res: Response) => {
   const { password, repeatedPassword } = req.body;
@@ -15,7 +14,9 @@ const post = async (req: Request, res: Response) => {
     res.status(400);
     res.json({
       success: false,
-      data: error.details.map((err: ValidationError) => err),
+      data: {
+        errors: error.details,
+      },
     });
     return;
   }

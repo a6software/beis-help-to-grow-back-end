@@ -1,15 +1,15 @@
-import { isRequiredError } from './generic';
-
-export const emailIsRequiredError = isRequiredError('email');
-
-export const emailIsNotValidError = (badEmail: string) => ({
-  message: '"email" must be a valid email',
-  path: ['email'],
+export const emailIsNotValidError = (fieldName: string, badEmail: string) => ({
+  message: `"${fieldName}" must be a valid email`,
+  path: [fieldName],
   type: 'string.email',
   context: {
     value: badEmail,
     invalids: [badEmail],
-    label: 'email',
-    key: 'email',
+    label: fieldName,
+    key: fieldName,
   },
 });
+
+export default {
+  emailIsNotValidError,
+};

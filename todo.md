@@ -3,6 +3,10 @@
 - [ ] verification link generation
 - [ ] password reset
 
+- [ ] change error response shape, all unanswered meta
+  - [ ] fix up `/eligibility/cyber-security`
+  - [ ] fix up `/eligibility/accessibility`
+
 - [ ] notify
 - [ ] ch integration
 

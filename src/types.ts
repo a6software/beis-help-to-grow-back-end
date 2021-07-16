@@ -96,11 +96,16 @@ export type EmailVerificationService = {
   ) => Promise<ErrorResponse | ValidateEmailVerificationCodeSuccessResponse>;
 };
 
+export type CreateUserParameters = {
+  email: Email;
+  plainTextPassword: PlainTextPassword;
+};
+
 export type UserService = {
-  createUser: (
-    email: Email,
-    plainTextPassword: PlainTextPassword,
-  ) => Promise<ErrorResponse | CreateUserSuccessResponse>;
+  createUser: ({
+    email,
+    plainTextPassword,
+  }: CreateUserParameters) => Promise<ErrorResponse | CreateUserSuccessResponse>;
 
   findUserByEmailAddress: (
     email: Email,

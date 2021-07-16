@@ -1,11 +1,11 @@
 import Joi from 'joi';
 import email from '../rules/email';
-import emailVerificationCode from '../rules/email-verification-code';
+import emailVerificationCodeIsUuidv4 from '../rules/email-verification-code-is-uuidv4';
 
 export const schema = Joi.object({
   email: email(),
-  verificationCode: emailVerificationCode(),
-});
+  verificationCode: emailVerificationCodeIsUuidv4(),
+}).required();
 
 export default {
   schema,

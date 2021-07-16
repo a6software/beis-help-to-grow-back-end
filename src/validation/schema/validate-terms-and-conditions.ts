@@ -5,7 +5,7 @@ import consentToTermsAndConditions from '../rules/consent-to-terms-and-condition
 export const schema = Joi.object({
   consentToDataSharing: consentToDataSharing(),
   consentToTermsAndConditions: consentToTermsAndConditions(),
-});
+}).required();
 
 export default {
   schema,

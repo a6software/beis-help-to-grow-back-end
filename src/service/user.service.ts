@@ -1,5 +1,6 @@
 import { Knex } from 'knex';
 import {
+  CreateUserParameters,
   CreateUserSuccessResponse,
   Email,
   ErrorResponse,
@@ -17,10 +18,10 @@ export const ERROR = {
 };
 
 export default function userService(db: Knex): UserService {
-  const createUser = async (
-    email: Email,
-    plainTextPassword: string,
-  ): Promise<ErrorResponse | CreateUserSuccessResponse> => {
+  const createUser = async ({
+    email,
+    plainTextPassword,
+  }: CreateUserParameters): Promise<ErrorResponse | CreateUserSuccessResponse> => {
     const hashedPassword = await hashPassword(plainTextPassword);
 
     try {

@@ -11,7 +11,7 @@ export const schema = Joi.object({
   phoneNumber: phoneNumber(),
   positionInCompany: positionInCompany(),
   workEmailAddress: email(),
-});
+}).required();
 
 export default {
   schema,

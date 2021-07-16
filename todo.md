@@ -1,8 +1,9 @@
 # TODO
 
 - [ ] GET fe verification page
-  - [ ] validate code
+  - [x] validate code
   - [ ] store in session
+  - [ ] delete code when used
   
 - [ ] `/create-account/email-verification` handle email / `req.session.yourDetails.workEmailAddress` possibly being invalid
 
@@ -15,6 +16,11 @@
   - [ ] `/create-account/terms-and-conditions`
 - [ ] password reset 
 
+- [x] drop res.locals error map from template render call
+  - [ ] refactor existing (including VR)
+- [x] reshape form entry njk template structure
+  - [ ] refactor existing (including VR)
+  
 - [ ] change error response shape, all unanswered meta
   - [ ] fix up `/eligibility/cyber-security`
   - [ ] fix up `/eligibility/accessibility`
@@ -37,6 +43,7 @@
 - [ ] verification code not recognised journey
 - [ ] verification code no session journey
 - [ ] password rules
+- [ ] password input - should be masked?
 - [ ] `/create-account/verification` - contact BEIS link
 
 # Testing
@@ -76,3 +83,16 @@
 - [x] front end middleware error mapping
 - [x] docker networking fe > be
 - [x] express session
+
+
+# CH payload
+```
+companyInformation {
+  company_name: 'FOUNDRY4 CONSULTING LTD',
+  company_number: '10686321',
+  company_status: 'active',
+  sic_codes: '62020',
+  registered_address: '7 Savoy Court, London, United Kingdom, WC2R 0EX',
+  postal_code: 'WC2R 0EX'
+}
+```
